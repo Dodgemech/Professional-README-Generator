@@ -57,4 +57,19 @@ const questions = () => {
     ]);
 };
 
+// function that writes README file
+function writeToFile(data) {
+    return fs.writeFile('./dist/README.md', generateMarkdown(data), err => {
+        if (err) throw new Eror(err);
 
+        console.log("README successfully generated!");
+    })
+};
+
+// triggers questions and then sends the data to the appropriate place
+questions().then(readmeData => {
+    console.log("Generating README...");
+    return writeToFile(readmeData);
+}).catch(err => {
+    console.log(err);
+});
